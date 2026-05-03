@@ -134,7 +134,7 @@ The system actively monitors for semantic and syntax errors during both passes t
 
 ---
 
-## Getting Startegit 
+## Getting Started
 ### 2. Run the Program
 ```bash
 python main.py input/sample_program.txt

@@ -134,14 +134,7 @@ The system actively monitors for semantic and syntax errors during both passes t
 
 ---
 
-## Getting Started
-
-### 1. Create a Virtual Environment (Windows)
-```bash
-python -m venv virtualenvironment
-.\virtualenvironment\Scripts\Activate
-```
-
+## Getting Startegit 
 ### 2. Run the Program
 ```bash
 python main.py input/sample_program.txt

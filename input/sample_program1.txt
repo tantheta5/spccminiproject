@@ -1,0 +1,18 @@
+; Baseline Sample 1 — SWAP macro with two parameters
+; Swaps values of two variables using a temp register
+
+MINIMACRO
+SWAP @A,@B
+PULL_VAL @A
+STORE_TMP
+PULL_VAL @B
+STORE_VAR @A
+PULL_TMP
+STORE_VAR @B
+MACROEND
+
+BEGIN_CODE
+SWAP X,Y
+SWAP P,Q
+SWAP R,S
+END_CODE

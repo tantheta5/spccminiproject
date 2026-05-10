@@ -1,0 +1,24 @@
+; Baseline Sample 2 — Multiple macros in one program
+; ADD_TO  : adds a constant to a variable
+; DOUBLE  : doubles a variable's value
+
+MINIMACRO
+ADD_TO @VAR,@CONST
+PULL_VAL @VAR
+ADD_VAL @CONST
+PUSH_VAL @VAR
+MACROEND
+
+MINIMACRO
+DOUBLE @VAR
+PULL_VAL @VAR
+MUL_VAL =2
+PUSH_VAL @VAR
+MACROEND
+
+BEGIN_CODE
+ADD_TO A,=5
+ADD_TO B,=10
+DOUBLE A
+DOUBLE B
+END_CODE

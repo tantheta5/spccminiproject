@@ -1,0 +1,13 @@
+; ERROR Sample 8 — Maximum recursion / expansion depth exceeded
+; LOOP calls itself, causing infinite recursive macro expansion
+; Expected error: "Maximum macro expansion depth exceeded (possible infinite recursion)."
+
+MINIMACRO
+LOOP @N
+PULL_VAL @N
+LOOP @N
+MACROEND
+
+BEGIN_CODE
+LOOP A
+END_CODE

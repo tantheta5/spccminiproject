@@ -1,0 +1,26 @@
+; Baseline Sample 3 — CLAMP macro with three parameters
+; Clamps variable @V to range [@LO, @HI]
+; Also shows a zero-parameter macro RESET
+
+MINIMACRO
+CLAMP @V,@LO,@HI
+PULL_VAL @V
+CMP_MIN @LO
+STORE_IF_LT @LO
+CMP_MAX @HI
+STORE_IF_GT @HI
+PUSH_VAL @V
+MACROEND
+
+MINIMACRO
+RESET
+LOAD_CONST =0
+PUSH_ALL
+MACROEND
+
+BEGIN_CODE
+CLAMP SPEED,=0,=100
+CLAMP TEMP,=20,=80
+RESET
+CLAMP SCORE,=1,=10
+END_CODE

@@ -1,0 +1,15 @@
+; ERROR Sample 6 — Undefined Macro call
+; DECR is never defined, but is called in the code section
+; Expected error: "Undefined macro: 'DECR'"
+
+MINIMACRO
+INCR @X
+PULL_VAL @X
+ADD_VAL =1
+PUSH_VAL @X
+MACROEND
+
+BEGIN_CODE
+INCR A
+DECR B
+END_CODE

@@ -1,0 +1,13 @@
+; ERROR Sample 4 — Missing MACROEND
+; The macro body is never closed with MACROEND
+; Expected error: "Missing MACROEND in macro definition for 'INCR'"
+
+MINIMACRO
+INCR @X
+PULL_VAL @X
+ADD_VAL =1
+PUSH_VAL @X
+
+BEGIN_CODE
+INCR A
+END_CODE

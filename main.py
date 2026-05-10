@@ -41,34 +41,79 @@ def main():
     print(f"Reading source file: {source_file}")
     print("=" * 50)
 
-    # ---- Pass 1 — build tables ----
+    # ---------------------------------------------------------------- #
+    # PASS 1 — build MNT, MDT, and definition-phase ALA               #
+    # ---------------------------------------------------------------- #
     try:
-        mnt, mdt, intermediate = pass1(source_lines)
+        mnt, mdt, ala_defs, intermediate = pass1(source_lines)
     except RuntimeError as e:
         print(f"\n[Pass 1 Error] {e}")
         sys.exit(1)
 
+    print("\n" + "=" * 50)
+    print("  PASS 1 — Macro Definition Processing")
+    print("=" * 50)
+
+    # MNT
     mnt.display()
+
+    # MDT
     mdt.display()
 
-    print("Intermediate Program (after Pass 1)")
-    print("-" * 40)
+    # ALA (Definition phase) — one table per macro defined
+    print("ALA — Definition Phase (Formal Parameter Mapping)")
+    print("-" * 50)
+    if ala_defs:
+        for macro_name, ala_def in ala_defs.items():
+            print(f"  Macro: {macro_name}")
+            print(f"  {'Position':<12} {'Parameter'}")
+            print(f"  {'-'*28}")
+            for pos, formal in ala_def.entries:
+                print(f"  {pos:<12} {formal}")
+            print()
+    else:
+        print("  (no macro definitions found)")
+        print()
+
+    # Intermediate program
+    print("Intermediate Program (after Pass 1 — definitions removed)")
+    print("-" * 50)
     for line in intermediate:
         if line.strip():
             print(f"  {line}")
     print()
 
-    # ---- Pass 2 — expand macro calls ----
+    # ---------------------------------------------------------------- #
+    # PASS 2 — macro expansion                                         #
+    # ---------------------------------------------------------------- #
     try:
-        expanded, ala = pass2(intermediate, mnt, mdt)
+        expanded, ala_exp = pass2(intermediate, mnt, mdt)
     except RuntimeError as e:
         print(f"\n[Pass 2 Error] {e}")
         sys.exit(1)
 
-    ala.display()
+    print("\n" + "=" * 50)
+    print("  PASS 2 — Macro Expansion")
+    print("=" * 50)
 
-    print("Expanded Program")
-    print("-" * 40)
+    # Combined ALA (Expansion phase) — all calls in one table
+    print("\nALA — Expansion Phase (All Macro Call Argument Bindings)")
+    print("-" * 50)
+    if ala_exp.calls:
+        for label, bindings in ala_exp.calls:
+            print(f"  Call: {label}")
+            print(f"  {'Position':<12} {'Actual Argument'}")
+            print(f"  {'-'*30}")
+            for pos, arg in bindings:
+                print(f"  {pos:<12} {arg}")
+            print()
+    else:
+        print("  (no macro calls found)")
+        print()
+
+    # Final expanded program
+    print("Final Expanded Program")
+    print("-" * 50)
     for line in expanded:
         if line.strip():
             print(f"  {line}")

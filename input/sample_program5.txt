@@ -1,0 +1,9 @@
+; ERROR Sample 5 — Missing macro header after MINIMACRO
+; MINIMACRO appears as the very last line with no header following it
+; Expected error: "Missing macro header after MINIMACRO keyword."
+
+BEGIN_CODE
+LOAD_VAL A
+END_CODE
+
+MINIMACRO

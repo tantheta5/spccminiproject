@@ -1,0 +1,18 @@
+; ERROR Sample 7 — Wrong argument count
+; SWAP expects 2 arguments but is called with 1 and then with 3
+; Expected error: "Incorrect number of arguments for macro 'SWAP': expected 2, got 1"
+
+MINIMACRO
+SWAP @A,@B
+PULL_VAL @A
+STORE_TMP
+PULL_VAL @B
+STORE_VAR @A
+PULL_TMP
+STORE_VAR @B
+MACROEND
+
+BEGIN_CODE
+SWAP X,Y
+SWAP Z
+END_CODE
